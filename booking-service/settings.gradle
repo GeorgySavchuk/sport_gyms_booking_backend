@@ -1,0 +1,5 @@
+rootProject.name = 'booking-service'
+
+include ':common'
+
+project(':common').projectDir = new File('../common')
