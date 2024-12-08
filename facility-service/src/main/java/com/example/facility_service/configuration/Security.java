@@ -26,6 +26,7 @@ public class Security {
                 .authorizeHttpRequests(request ->
                         request
                                 .requestMatchers("/facilities/**", "/bookings/**").permitAll() 
+                                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS));

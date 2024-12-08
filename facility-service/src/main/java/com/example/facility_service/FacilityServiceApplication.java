@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = {"com.example.common.model"})
 @EnableJpaRepositories(basePackages = {"com.example.facility_service.repository"})
 public class FacilityServiceApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(FacilityServiceApplication.class, args);
 	}

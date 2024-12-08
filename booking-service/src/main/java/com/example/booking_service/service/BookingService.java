@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class BookingService {
-    private final BookingRepository bookingRepository;
+    BookingRepository bookingRepository;
     private final UserService userService;
     private final FacilityService sportFacilityService;
 
@@ -107,5 +107,17 @@ public class BookingService {
         }
 
         return weekIntervals;
+    }
+
+    public boolean deleteBooking(Long bookingId) {
+        Optional<Booking> booking = bookingRepository.findById(bookingId);
+        if (booking.isPresent()) {
+            bookingRepository.delete(booking.get());
+            log.info("Booking deleted with ID: {}", bookingId);
+            return true;
+        } else {
+            log.info("Booking not found with ID: {}", bookingId);
+            return false;
+        }
     }
 }

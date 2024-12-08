@@ -11,6 +11,11 @@ import com.example.auth_service.service.UserService;
 import com.example.common.model.DTO.UserDTO;
 import com.example.common.model.DTO.UserInfoDTO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -18,12 +23,18 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "AuthController", description = "Контроллер для аутентификации и регистрации пользователей")
 public class AuthController {
     AuthService authorizationService;
     UserService userService;
 
+    @Operation(summary = "Регистрация нового пользователя", description = "Регистрирует нового пользователя")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Пользователь успешно зарегистрирован"),
+        @ApiResponse(responseCode = "400", description = "Пользователь уже существует")
+    })
     @PostMapping("/signup")
-    public String signUp(@RequestBody UserDTO userData){
+    public String signUp(@Parameter(description = "Данные пользователя для регистрации", required = true) @RequestBody UserDTO userData){
         if(authorizationService.signUp(userData)){
             return "User created";
         }else{
@@ -31,8 +42,13 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "Вход пользователя", description = "Выполняет вход пользователя")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Успешный вход"),
+        @ApiResponse(responseCode = "400", description = "Неверные учетные данные")
+    })
     @PostMapping("/signin")
-    public String signIn(@RequestBody UserDTO userData, HttpServletRequest request, HttpServletResponse response){
+    public String signIn(@Parameter(description = "Данные пользователя для входа", required = true) @RequestBody UserDTO userData, HttpServletRequest request, HttpServletResponse response){
         if(authorizationService.signIn(userData, request, response)){
             return "Signed in successfully";
         }else{
@@ -40,6 +56,10 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "Получение информации о пользователе", description = "Возвращает информацию о текущем пользователе")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Информация о пользователе успешно получена")
+    })
     @GetMapping("/my-info")
     public UserInfoDTO myInfo() {
         return userService.getMyInfo();

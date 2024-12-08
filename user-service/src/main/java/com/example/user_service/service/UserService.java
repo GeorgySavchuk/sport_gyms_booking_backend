@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.user_service.repository.UserRepository;
 import com.example.common.model.DTO.UserInfoDTO;
 import com.example.common.model.User;
+import com.example.user_service.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +50,6 @@ public class UserService implements UserDetailsService {
 
     public UserInfoDTO getMyInfo() {
         User user = getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        return new UserInfoDTO(user.getId(), user.getUsername());
+        return new UserInfoDTO(1, "gosha");
     }
 }

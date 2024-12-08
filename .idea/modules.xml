@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/booking-service/sport-facilities-backend.booking-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/booking-service/sport-facilities-backend.booking-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/sport-facilities-backend.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/sport-facilities-backend.common.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/facility-service/sport-facilities-backend.facility-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/facility-service/sport-facilities-backend.facility-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/sport-facilities-backend.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/sport-facilities-backend.user-service.main.iml" />
     </modules>
   </component>
 </project>

@@ -16,10 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class FacilityService {
-    private final FacilityRepository facilityRepositiory;
+    private final FacilityRepository facilityRepository;
 
     public boolean addFacility(SportFacilityDTO facilityDTO) {
-        if (facilityRepositiory.findByAddressAndTitle(facilityDTO.getAddress(), facilityDTO.getTitle()).isEmpty()) {
+        if (facilityRepository.findByAddressAndTitle(facilityDTO.getAddress(), facilityDTO.getTitle()).isEmpty()) {
             SportFacility facility = new SportFacility(
                 facilityDTO.getTitle(),
                 facilityDTO.getImage(),
@@ -39,7 +39,7 @@ public class FacilityService {
                 facilityDTO.getMaxPeopleCount()
             );
 
-            facilityRepositiory.save(facility);
+            facilityRepository.save(facility);
             log.info("Sport facility added: {}", facilityDTO);
             return true;
         }
@@ -49,11 +49,23 @@ public class FacilityService {
 
     public List<SportFacility> getAllSportFacilities() {
         log.info("Getting all sport facilities");
-        return facilityRepositiory.findAll();
+        return facilityRepository.findAll();
     }
 
     public Optional<SportFacility> getSportFacilityById(Long id) {
         log.info("Getting sport facility with id {}", id);
-        return facilityRepositiory.findById(id);
+        return facilityRepository.findById(id);
+    }
+
+    public boolean deleteFacility(Long id) {
+        Optional<SportFacility> facility = facilityRepository.findById(id);
+        if (facility.isPresent()) {
+            facilityRepository.delete(facility.get());
+            log.info("Sport facility deleted with ID: {}", id);
+            return true;
+        } else {
+            log.info("Sport facility not found with ID: {}", id);
+            return false;
+        }
     }
 }
